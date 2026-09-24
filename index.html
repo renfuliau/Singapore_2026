@@ -1,0 +1,1640 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>🇸🇬 新加坡四天三夜 2026</title>
+    <meta name="description" content="新加坡四天三夜旅遊行程網頁，10/6–10/9，成員：Brian、Yuki、Katty、仁甫、阿NO、Rich、Charlene">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap"
+        rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#1D3557',
+                        secondary: '#457B9D',
+                        accent: '#E63946',
+                        teal: '#A8DADC',
+                        light: '#F1FAEE',
+                        dark: '#1D3557',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            background-color: #F1FAEE;
+            color: #1D3557;
+        }
+
+        /* 隱藏滾動條但保持滾動功能 */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* 頁面切換動畫 */
+        .section-content {
+            display: none;
+            opacity: 0;
+        }
+
+        .section-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 玻璃底部導航 */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(29, 53, 87, 0.08);
+        }
+
+        /* 導航按鈕 */
+        .nav-item {
+            transition: all 0.2s ease;
+            color: #94a3b8;
+        }
+
+        .nav-item.active {
+            color: #1D3557;
+            transform: scale(1.05);
+        }
+
+        /* 行程時間軸 */
+        .timeline-container {
+            position: relative;
+            padding-left: 24px;
+        }
+
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 10px;
+            bottom: -20px;
+            width: 2px;
+            background: linear-gradient(to bottom, #457B9D, #A8DADC);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 1.5rem;
+        }
+
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: -22px;
+            top: 6px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: white;
+            border: 3px solid #cbd5e1;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item.highlight::after {
+            border-color: #1D3557;
+            background-color: #F1FAEE;
+            box-shadow: 0 0 0 3px rgba(29, 53, 87, 0.2);
+        }
+
+        /* SOS 閃爍 */
+        @keyframes pulse-border {
+            0% {
+                box-shadow: 0 0 0 0 rgba(230, 57, 70, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(230, 57, 70, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(230, 57, 70, 0);
+            }
+        }
+
+        .sos-card {
+            animation: pulse-border 2s infinite;
+        }
+
+        /* Info Tab 切換 */
+        .info-tab-btn {
+            transition: all 0.2s ease;
+        }
+
+        .info-tab-btn.active {
+            background-color: #1D3557;
+            color: white;
+            box-shadow: 0 4px 12px rgba(29, 53, 87, 0.3);
+        }
+
+        .info-panel {
+            display: none;
+        }
+
+        .info-panel.active {
+            display: block;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        /* 自定義 Checkbox */
+        .custom-checkbox {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #cbd5e1;
+            border-radius: 6px;
+            outline: none;
+            transition: all 0.2s;
+            position: relative;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .custom-checkbox:checked {
+            background-color: #457B9D;
+            border-color: #457B9D;
+        }
+
+        .custom-checkbox:checked::after {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: white;
+            font-size: 11px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .checked-text {
+            text-decoration: line-through;
+            color: #94a3b8;
+        }
+
+        /* Day content */
+        .day-content {
+            display: none;
+        }
+
+        .day-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        /* Day btn active */
+        .day-btn.active {
+            background-color: #1D3557;
+            color: white;
+            box-shadow: 0 4px 12px rgba(29, 53, 87, 0.35);
+            border-color: #1D3557;
+        }
+
+        /* Hero gradient overlay */
+        .hero-overlay {
+            background: linear-gradient(to top, rgba(29, 53, 87, 0.95) 0%, rgba(29, 53, 87, 0.4) 50%, transparent 100%);
+        }
+
+        /* 匯率換算 */
+        .currency-card {
+            background: linear-gradient(135deg, #1D3557 0%, #457B9D 100%);
+        }
+
+        /* 快捷導航按鈕 */
+        @keyframes shimmer {
+            0% {
+                background-position: -200px 0;
+            }
+
+            100% {
+                background-position: 200px 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="pb-24 antialiased">
+
+    <!-- 頂部標題列（非首頁顯示） -->
+    <header id="top-header"
+        class="fixed top-0 inset-x-0 bg-white/90 backdrop-blur z-40 border-b border-gray-100 px-5 py-3 hidden">
+        <h1 id="header-title" class="text-base font-bold text-center text-primary truncate"></h1>
+    </header>
+
+    <!-- 右上角快捷按鈕 -->
+    <div class="fixed top-2 right-2 z-50 flex gap-2">
+        <a href="tel:999"
+            class="bg-white text-red-500 w-10 h-10 rounded-full flex justify-center items-center shadow-md border border-red-100"
+            title="新加坡緊急電話 999">
+            <i class="fa-solid fa-phone-volume text-lg"></i>
+        </a>
+        <button onclick="window.open('https://www.google.com/maps/search/?api=1&query=Singapore')"
+            class="bg-white text-secondary w-10 h-10 rounded-full flex justify-center items-center shadow-md border border-blue-100"
+            title="Google Maps">
+            <i class="fa-solid fa-map-location-dot text-lg"></i>
+        </button>
+    </div>
+
+    <main class="w-full max-w-md mx-auto min-h-screen relative">
+
+        <!-- ======================== -->
+        <!-- SECTION: 首頁 (Home)     -->
+        <!-- ======================== -->
+        <section id="home" class="section-content p-5 space-y-6 pt-5">
+
+            <!-- Hero Banner -->
+            <div class="relative rounded-3xl overflow-hidden h-64 shadow-lg group">
+                <div class="absolute inset-0 bg-gray-300 animate-pulse"></div>
+                <img src="https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=1280&q=80"
+                    onload="this.previousElementSibling.style.display='none'" alt="濱海灣金沙夜景"
+                    class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                <div class="absolute inset-0 hero-overlay"></div>
+                <div class="absolute bottom-0 inset-x-0 p-5 text-white">
+                    <span
+                        class="bg-accent/90 text-white text-xs font-bold px-2.5 py-1 rounded-full mb-2 inline-block shadow-sm">
+                        <i class="fa-solid fa-plane text-[10px] mr-1"></i>投名狀 in 新加坡
+                    </span>
+                    <h1 class="text-3xl font-black mb-1 drop-shadow-md tracking-wide">新加坡</h1>
+                    <p class="text-sm text-blue-200 font-medium">2026/10/6 (二) ─ 10/9 (五)</p>
+
+                    <div
+                        class="mt-3 inline-flex items-center space-x-2 bg-black/40 backdrop-blur-md rounded-xl p-2.5 border border-white/20">
+                        <div
+                            class="bg-secondary w-8 h-8 rounded-lg flex items-center justify-center text-white flex-shrink-0">
+                            <i class="fa-regular fa-clock text-sm"></i>
+                        </div>
+                        <div id="countdown" class="text-sm font-bold tracking-wider text-white">
+                            計算倒數中...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 航班資訊 -->
+            <div class="space-y-3">
+                <h3 class="text-sm font-bold text-gray-500 mb-1 ml-1 flex items-center">
+                    <i class="fa-solid fa-plane-arrival mr-2 text-secondary"></i>抵達資訊
+                </h3>
+
+                <!-- Rich & Charlene -->
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="bg-green-50/80 px-4 py-2 border-b border-green-50 flex items-center">
+                        <span class="font-bold text-green-800 text-sm"><i class="fa-solid fa-user-group mr-1.5"></i>Rich
+                            &amp; Charlene</span>
+                    </div>
+                    <div class="p-4 flex items-center">
+                        <div
+                            class="bg-blue-50 text-blue-500 w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-plane-arrival text-xl"></i>
+                        </div>
+                        <div class="ml-4 flex-1">
+                            <p class="text-xs text-gray-400 font-medium mb-0.5">去程（TPE → SIN）</p>
+                            <p class="font-bold text-gray-800">10/6 (二) 約 14:00 抵達</p>
+                            <p class="text-xs text-gray-500 mt-1">樟宜機場 → Hotel Mi Rochor Check-in</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 仁甫 & 阿NO -->
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="bg-orange-50/80 px-4 py-2 border-b border-orange-50 flex items-center">
+                        <span class="font-bold text-orange-800 text-sm"><i class="fa-solid fa-user-group mr-1.5"></i>仁甫
+                            &amp; 阿NO</span>
+                    </div>
+                    <div class="p-4 flex items-center">
+                        <div
+                            class="bg-blue-50 text-blue-500 w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-plane-arrival text-xl"></i>
+                        </div>
+                        <div class="ml-4 flex-1">
+                            <p class="text-xs text-gray-400 font-medium mb-0.5">去程（SYD → SIN）</p>
+                            <p class="font-bold text-gray-800">10/6 (二) 約 19:30 抵達</p>
+                            <p class="text-xs text-gray-500 mt-1">樟宜機場 → 全員 20:30 集合</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Brian & Yuki -->
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="bg-teal-50/80 px-4 py-2 border-b border-teal-50 flex items-center">
+                        <span class="font-bold text-teal-800 text-sm"><i class="fa-solid fa-house mr-1.5"></i>Brian、Yuki
+                            &amp; Katty</span>
+                    </div>
+                    <div class="p-4 flex items-center">
+                        <div
+                            class="bg-teal-50 text-teal-500 w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-location-dot text-xl"></i>
+                        </div>
+                        <div class="ml-4 flex-1">
+                            <p class="text-xs text-gray-400 font-medium mb-0.5">在地響導</p>
+                            <p class="font-bold text-gray-800">三弟 carry</p>
+                            <p
+                                class="text-xs text-teal-600 bg-teal-50 px-2 py-0.5 rounded-full inline-block mt-1 font-medium">
+                                16:00–18:00 先與 Rich &amp; Charlene 會合</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 住宿概覽 -->
+            <div>
+                <h3 class="text-sm font-bold text-gray-500 mb-3 ml-1 flex items-center">
+                    <i class="fa-solid fa-bed mr-2 text-secondary"></i>住宿
+                </h3>
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4">
+                    <div class="flex items-start">
+                        <div
+                            class="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0 mr-4">
+                            <i class="fa-solid fa-hotel text-primary text-2xl"></i>
+                        </div>
+                        <div class="flex-1">
+                            <p class="font-bold text-gray-800 text-base">Hotel Mi Rochor</p>
+                            <p class="text-xs text-gray-500 mt-0.5">新加坡市區（Rochor 地鐵站附近）</p>
+                            <div class="flex items-center gap-2 mt-2 flex-wrap">
+                                <span class="text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full">10/6
+                                    ~ 10/8</span>
+                                <span class="text-xs font-bold text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">3
+                                    晚</span>
+                            </div>
+                        </div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Hotel+Mi+Rochor+Singapore"
+                            target="_blank"
+                            class="flex-shrink-0 ml-2 inline-flex items-center justify-center text-secondary bg-blue-50 hover:bg-blue-100 px-2.5 py-1 rounded-full text-[11px] font-bold transition shadow-sm border border-blue-200">
+                            <i class="fa-solid fa-location-dot mr-1"></i>導航
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 天氣資訊 -->
+            <div id="weather-card" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-xl bg-yellow-50 flex items-center justify-center text-2xl"
+                            id="weather-icon">🌤️</div>
+                        <div>
+                            <p class="text-xs text-gray-400 font-medium">新加坡即時天氣</p>
+                            <p class="font-bold text-gray-800 text-lg" id="weather-temp">載入中...</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-xs text-gray-400" id="weather-desc">--</p>
+                        <p class="text-xs text-blue-500 mt-1" id="weather-humidity">--</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ======================== -->
+        <!-- SECTION: 行程表           -->
+        <!-- ======================== -->
+        <section id="itinerary" class="section-content pt-16 pb-6 px-5 min-h-screen">
+
+            <!-- 天數切換器 -->
+            <div
+                class="flex space-x-2 overflow-x-auto pb-3 pt-1 hide-scrollbar -mx-5 px-5 sticky top-12 z-30 bg-[#F1FAEE]/95 backdrop-blur">
+                <button onclick="showDay(1, this)" id="day-btn-1"
+                    class="day-btn active flex-none px-4 py-2.5 bg-primary text-white rounded-xl shadow-md text-sm font-bold transition-all">
+                    D1<span class="text-[10px] font-normal block opacity-80 mt-0.5">10/6 抵達</span>
+                </button>
+                <button onclick="showDay(2, this)" id="day-btn-2"
+                    class="day-btn flex-none px-4 py-2.5 bg-white text-gray-500 rounded-xl shadow-sm border border-gray-100 text-sm font-bold transition-all">
+                    D2<span class="text-[10px] font-normal block opacity-80 mt-0.5">10/7 環球</span>
+                </button>
+                <button onclick="showDay(3, this)" id="day-btn-3"
+                    class="day-btn flex-none px-4 py-2.5 bg-white text-gray-500 rounded-xl shadow-sm border border-gray-100 text-sm font-bold transition-all">
+                    D3<span class="text-[10px] font-normal block opacity-80 mt-0.5">10/8 濱海灣</span>
+                </button>
+                <button onclick="showDay(4, this)" id="day-btn-4"
+                    class="day-btn flex-none px-4 py-2.5 bg-white border border-red-200 text-red-500 rounded-xl shadow-sm text-sm font-bold transition-all">
+                    D4 ✈️<span class="text-[10px] font-normal block opacity-80 mt-0.5">10/9 回程</span>
+                </button>
+            </div>
+
+            <!-- ===== Day 1: 10/6 抵達 ===== -->
+            <div id="day-1" class="day-content active mt-4">
+                <div class="mb-4 flex items-center">
+                    <div class="bg-blue-100 text-blue-600 p-2.5 rounded-xl mr-3 shadow-sm">
+                        <i class="fa-solid fa-plane-arrival text-xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-bold text-dark">抵達日・全員集合</h2>
+                        <p class="text-xs text-gray-500">分批抵達，老巴剎吃一頓！</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3 mb-5">
+                    <div class="bg-white p-3 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-center">
+                        <span class="text-[10px] text-gray-400 mb-0.5"><i class="fa-solid fa-bed mr-1"></i>住宿</span>
+                        <span class="text-xs font-bold text-gray-700 leading-tight">Hotel Mi Rochor<br><span
+                                class="text-[10px] font-normal text-gray-500">全程住宿</span></span>
+                    </div>
+                    <div class="bg-white p-3 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-center">
+                        <span class="text-[10px] text-gray-400 mb-0.5"><i class="fa-solid fa-car mr-1"></i>交通</span>
+                        <span class="text-xs font-bold text-gray-700 leading-tight">Grab 叫車<br><span
+                                class="text-[10px] font-normal text-gray-500">機場→飯店</span></span>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-3xl shadow-sm border border-gray-100">
+                    <div class="timeline-container">
+                        <div class="timeline-item highlight">
+                            <p class="text-xs font-bold text-secondary tracking-widest mb-1">14:00</p>
+                            <h4 class="font-bold text-dark text-sm">Rich &amp; Charlene 抵達樟宜機場 ✈️</h4>
+                            <p class="text-xs text-gray-500 mt-1">辦理入境手續，搭 Grab 前往 Hotel Mi Rochor。</p>
+                            <div class="bg-blue-50 p-2 rounded-lg mt-2 border border-blue-100">
+                                <p class="text-xs text-blue-800 font-medium"><i
+                                        class="fa-solid fa-circle-info mr-1"></i>樟宜機場 → Hotel Mi Rochor 車程約 25–30 分，Grab
+                                    約 SGD 22–30。</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <p class="text-xs font-bold text-gray-400 tracking-widest mb-1">約 15:00</p>
+                            <h4 class="font-bold text-dark text-sm">Check-in、放行李、休息</h4>
+                            <p class="text-xs text-gray-500 mt-1">飯店附近輕鬆散步，適應熱帶氣候。</p>
+                        </div>
+                        <div class="timeline-item highlight">
+                            <p class="text-xs font-bold text-secondary tracking-widest mb-1">16:00 – 18:00</p>
+                            <h4 class="font-bold text-dark text-sm">Rich &amp; Charlene 與 Brian 先會合</h4>
+                            <p class="text-xs text-gray-500 mt-1">飯店或市區附近輕鬆逛逛，等待後續成員抵達。</p>
+                        </div>
+                        <div class="timeline-item highlight">
+                            <p class="text-xs font-bold text-secondary tracking-widest mb-1">19:30</p>
+                            <h4 class="font-bold text-dark text-sm">仁甫 &amp; 阿NO 抵達樟宜機場 ✈️</h4>
+                            <p class="text-xs text-gray-500 mt-1">辦理入境、搭 Grab 往市區。</p>
+                        </div>
+                        <div class="timeline-item">
+                            <p class="text-xs font-bold text-gray-400 tracking-widest mb-1">約 20:30 – 21:00</p>
+                            <h4 class="font-bold text-dark text-sm">🎉 全員集合！</h4>
+                        </div>
+                        <div class="timeline-item highlight">
+                            <p class="text-xs font-bold text-secondary tracking-widest mb-1">21:00</p>
+                            <h4 class="font-bold text-dark text-sm">🍽️ 晚餐｜老巴剎 Lau Pa Sat</h4>
+                            <div class="bg-orange-50 p-3 rounded-xl mt-2 border border-orange-100">
+                                <p class="text-xs text-orange-800 font-bold mb-1">新加坡必去！戶外大排檔</p>
+                                <p class="text-xs text-orange-700 leading-relaxed">辣椒螃蟹、沙嗲、Laksa、炒粿條…以吃東西為主，不另外安排景點。</p>
+                            </div>
+                            <a href="https://www.google.com/maps/search/?api=1&query=Lau+Pa+Sat+Singapore"
+                                target="_blank"
+                                class="inline-flex items-center mt-2 text-secondary bg-blue-50 hover:bg-blue-100 px-3 py-1 rounded-full text-xs font-bold transition border border-blue-200">
+                                <i class="fa-solid fa-location-dot mr-1"></i>Google Maps 導航
+                            </a>
+                        </div>
+                        <div class="timeline-item">
+                            <p class="text-xs font-bold text-gray-400 tracking-widest mb-1">22:00 – 23:00</p>
+                            <h4 class="font-bold text-dark text-sm">回 Hotel Mi Rochor 休息 😴</h4>
+                            <p class="text-xs text-gray-500 mt-1">明天環球影城要早起！</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== Day 2: 10/7 環球影城 ===== -->
+            <div id="day-2" class="day-content mt-4">
+                <div class="mb-4 flex items-center">
+                    <div class="bg-yellow-100 text-yellow-600 p-2.5 rounded-xl mr-3 shadow-sm">
+                        <i class="fa-solid fa-wand-magic-sparkles text-xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-bold text-dark">環球影城・螃蟹盛宴</h2>
+                        <p class="text-xs text-gray-500">聖淘沙 + 大排檔螃蟹晚餐</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3 mb-5">
+                    <div class="bg-white p-3 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-center">
+                        <span class="text-[10px] text-gray-400 mb-0.5"><i class="fa-solid fa-bed mr-1"></i>住宿</span>
+                        <span class="text-xs font-bold text-gray-700 leading-tight">Hotel Mi Rochor<br><span
+                                class="text-[10px] font-normal text-gray-500">連住</span></span>
+                    </div>
+                    <div class="bg-white p-3 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-center">
+                        <span class="text-[10px] text-gray-400 mb-0.5"><i class="fa-solid fa-car mr-1"></i>交通</span>
+                        <span class="text-xs font-bold text-gray-700 leading-tight">Brian&amp;Yuki 開車<br><span
+                                class="text-[10px] font-normal text-gray-500">前往聖淘沙</span></span>
+                    </div>
+                </div>
+
+                <!-- 環球影城設施動線 -->
+                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 mb-4">
+                    <p class="text-xs font-bold text-yellow-800 mb-2"><i class="fa-solid fa-route mr-1"></i>熱門設施建議動線</p>
+                    <div class="space-y-1.5">
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] font-bold text-yellow-600 w-12 flex-shrink-0">10:00</span>
+                            <span class="text-xs text-yellow-900 font-medium">🚀 Battlestar Galactica（開園衝）</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] font-bold text-yellow-600 w-12 flex-shrink-0">11:00</span>
+                            <span class="text-xs text-yellow-900">🤖 Transformers: The Ride</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] font-bold text-yellow-600 w-12 flex-shrink-0">12:00</span>
+                            <span class="text-xs text-yellow-900">💀 Revenge of the Mummy</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] font-bold text-yellow-600 w-12 flex-shrink-0">13:00</span>
+                            <span class="text-xs text-yellow-900">🍱 午餐＋休息</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] font-bold text-yellow-600 w-12 flex-shrink-0">14:00</span>
+                            <span class="text-xs text-yellow-900">🦕 Jurassic Park Rapids Adventure</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] font-bold text-yellow-600 w-12 flex-shrink-0">15:00</span>
+                            <span class="text-xs text-yellow-900">🐱 Puss in Boots</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] font-bold text-yellow-600 w-12 flex-shrink-0">16:00</span>
+                            <span class="text-xs text-yellow-900">📸 補玩其他設施、拍照</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-3xl shadow-sm border border-gray-100">
+                    <div class="timeline-container">
+                        <div class="timeline-item">
+                            <p class="text-xs font-bold text-gray-400 tracking-widest mb-1">08:00 – 08:30</p>
+                            <h4 class="font-bold text-dark text-sm">起床、早餐</h4>
+                            <p class="text-xs text-gray-500 mt-1">飯店或附近解決，準備出發！</p>
+                        </div>
+                        <div class="timeline-item highlight">
+                            <p class="text-xs font-bold text-secondary tracking-widest mb-1">09:00</p>
+                            <h4 class="font-bold text-dark text-sm">全員前往聖淘沙</h4>
+                        </div>
+                        <div class="timeline-item highlight">
+                            <p class="text-xs font-bold text-secondary tracking-widest mb-1">10:00</p>
+                            <h4 class="font-bold text-dark text-sm">🎢 新加坡環球影城入園</h4>
+                            <a href="https://www.google.com/maps/search/?api=1&query=Universal+Studios+Singapore"
+                                target="_blank"
+                                class="inline-flex items-center mt-2 text-secondary bg-blue-50 hover:bg-blue-100 px-3 py-1 rounded-full text-xs font-bold transition border border-blue-200">
+                                <i class="fa-solid fa-location-dot mr-1"></i>導航至環球影城
+                            </a>
+                        </div>
+                        <div class="timeline-item">
+                            <p class="text-xs font-bold text-gray-400 tracking-widests mb-1">10:00 – 16:30</p>
+                            <h4 class="font-bold text-dark text-sm">依建議動線遊玩設施 🎡</h4>
+                        </div>
+                        <div class="timeline-item">
+                            <p class="text-xs font-bold text-gray-400 tracking-widest mb-1">約 16:30</p>
+                            <h4 class="font-bold text-dark text-sm">Brian &amp; Yuki 先離開 <span
+                                    class="text-xs text-teal-600 font-bold bg-teal-50 px-1.5 py-0.5 rounded ml-1">接
+                                    Katty 下課</span></h4>
+                        </div>
+                        <div class="timeline-item">
+                            <p class="text-xs font-bold text-gray-400 tracking-widest mb-1">約 17:00</p>
+                            <h4 class="font-bold text-dark text-sm">仁甫、阿NO、Rich、Charlene 離開</h4>
+                            <p class="text-xs text-gray-500 mt-1">回飯店稍作休息，準備晚餐。</p>
+                        </div>
+                        <div class="timeline-item">
+                            <p class="text-xs font-bold text-gray-400 tracking-widest mb-1">18:30 – 19:00</p>
+                            <h4 class="font-bold text-dark text-sm">與 Brian、Yuki、Katty 會合</h4>
+                        </div>
+                        <div class="timeline-item">
+                            <p class="text-xs font-bold text-gray-400 tracking-widest mb-1">19:00 – 20:30</p>
+                            <h4 class="font-bold text-dark text-sm">🍜 晚餐｜環球影城附近隨興覓食</h4>
+                            <p class="text-xs text-gray-500 mt-1">聖淘沙美食廣場或回市區吃，輕鬆解決。</p>
+                        </div>
+                        <div class="timeline-item">
+                            <p class="text-xs font-bold text-gray-400 tracking-widest mb-1">21:30 後</p>
+                            <h4 class="font-bold text-dark text-sm">🏀 籃球彈性行程</h4>
+                            <p class="text-xs text-gray-500 mt-1">有體力就去打球，沒體力就回飯店休息。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== Day 3: 10/8 新家+Luge+搭船+濱海灣 ===== -->
+            <div id="day-3" class="day-content mt-4">
+                <div class="mb-4 flex items-center">
+                    <div class="bg-green-100 text-green-600 p-2.5 rounded-xl mr-3 shadow-sm">
+                        <i class="fa-solid fa-tree text-xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-bold text-dark">新家慶祝・Luge・燈光秀</h2>
+                        <p class="text-xs text-gray-500">River Cruise + Gardens by the Bay</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3 mb-5">
+                    <div class="bg-white p-3 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-center">
+                        <span class="text-[10px] text-gray-400 mb-0.5"><i class="fa-solid fa-bed mr-1"></i>住宿</span>
+                        <span class="text-xs font-bold text-gray-700 leading-tight">Hotel Mi Rochor<br><span
+                                class="text-[10px] font-normal text-gray-500">最後一晚</span></span>
+                    </div>
+                    <div class="bg-white p-3 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-center">
+                        <span class="text-[10px] text-gray-400 mb-0.5"><i class="fa-solid fa-ship mr-1"></i>亮點</span>
+                        <span class="text-xs font-bold text-gray-700 leading-tight">Garden Rhapsody<br><span
+                                class="text-[10px] font-normal text-gray-500">20:45 燈光秀</span></span>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-3xl shadow-sm border border-gray-100">
+                    <div class="timeline-container">
+                        <div class="timeline-item highlight">
+                            <p class="text-xs font-bold text-secondary tracking-widest mb-1">09:00</p>
+                            <h4 class="font-bold text-dark text-sm">仁甫、阿NO、Rich、Charlene 前往 Brian 新家 🏠</h4>
+                        </div>
+                        <div class="timeline-item highlight">
+                            <p class="text-xs font-bold text-secondary tracking-widest mb-1">09:30 – 11:30</p>
+                            <h4 class="font-bold text-dark text-sm">參觀新家、聊天、慶祝新居 🎉</h4>
+                            <div class="bg-green-50 p-2 rounded-lg mt-2 border border-green-100">
+                                <p class="text-xs text-green-800 font-medium">慶祝 Brian &amp; Yuki 的新家！</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item highlight">
+                            <p class="text-xs font-bold text-secondary tracking-widest mb-1">12:00 – 14:00</p>
+                            <h4 class="font-bold text-dark text-sm">🦀 大排檔螃蟹料理午餐</h4>
+                            <div class="bg-red-50 p-3 rounded-xl mt-2 border border-red-100">
+                                <p class="text-xs text-red-800 font-bold mb-1">新加坡必吃！</p>
+                                <p class="text-xs text-red-700 leading-relaxed">辣椒螃蟹、黑胡椒螃蟹、饅頭蘸醬汁…白天吃更豐盛！</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item highlight">
+                            <p class="text-xs font-bold text-secondary tracking-widest mb-1">14:00 – 17:00</p>
+                            <h4 class="font-bold text-dark text-sm">🛷 聖淘沙 Skyline Luge</h4>
+                            <div class="bg-orange-50 p-3 rounded-xl mt-2 border border-orange-100">
+                                <p class="text-xs text-orange-800 font-medium mb-1">刺激的滑坡車體驗！</p>
+                                <p class="text-xs text-orange-700">預留約 2–3 小時，含排隊、纜車上山、遊玩、拍照。</p>
+                            </div>
+                            <a href="https://www.google.com/maps/search/?api=1&query=Skyline+Luge+Sentosa+Singapore"
+                                target="_blank"
+                                class="inline-flex items-center mt-2 text-secondary bg-blue-50 hover:bg-blue-100 px-3 py-1 rounded-full text-xs font-bold transition border border-blue-200">
+                                <i class="fa-solid fa-location-dot mr-1"></i>導航至 Luge
+                            </a>
+                        </div>
+                        <div class="timeline-item">
+                            <p class="text-xs font-bold text-gray-400 tracking-widest mb-1">17:00 – 17:45</p>
+                            <h4 class="font-bold text-dark text-sm">簡單吃點東西、補充體力</h4>
+                        </div>
+                        <div class="timeline-item highlight">
+                            <p class="text-xs font-bold text-secondary tracking-widest mb-1">18:30 – 19:15</p>
+                            <h4 class="font-bold text-dark text-sm">🚢 Singapore River Cruise</h4>
+                            <div class="bg-blue-50 p-3 rounded-xl mt-2 border border-blue-100">
+                                <p class="text-xs text-blue-800 font-medium mb-1">船程約 40 分鐘</p>
+                                <p class="text-xs text-blue-700">從河上欣賞魚尾獅、濱海灣金沙等著名景點。</p>
+                            </div>
+                            <a href="https://www.google.com/maps/search/?api=1&query=Singapore+River+Cruise"
+                                target="_blank"
+                                class="inline-flex items-center mt-2 text-secondary bg-blue-50 hover:bg-blue-100 px-3 py-1 rounded-full text-xs font-bold transition border border-blue-200">
+                                <i class="fa-solid fa-location-dot mr-1"></i>導航至搭船點
+                            </a>
+                        </div>
+                        <div class="timeline-item highlight">
+                            <p class="text-xs font-bold text-secondary tracking-widest mb-1">19:45 – 20:30</p>
+                            <h4 class="font-bold text-dark text-sm">🌳 Gardens by the Bay 濱海灣花園</h4>
+                            <p class="text-xs text-gray-500 mt-1">Supertree Grove 散步、拍照，等待燈光秀。</p>
+                            <a href="https://www.google.com/maps/search/?api=1&query=Gardens+by+the+Bay+Singapore"
+                                target="_blank"
+                                class="inline-flex items-center mt-2 text-secondary bg-blue-50 hover:bg-blue-100 px-3 py-1 rounded-full text-xs font-bold transition border border-blue-200">
+                                <i class="fa-solid fa-location-dot mr-1"></i>導航至花園
+                            </a>
+                        </div>
+                        <div class="timeline-item highlight">
+                            <p class="text-xs font-bold text-secondary tracking-widest mb-1">20:45 ✨</p>
+                            <h4 class="font-bold text-dark text-sm">Garden Rhapsody 擎天樹燈光秀</h4>
+                            <div class="bg-indigo-50 p-3 rounded-xl mt-2 border border-indigo-100">
+                                <p class="text-xs text-indigo-800 font-bold mb-1">每晚 19:45 &amp; 20:45 各一場，約 10 分鐘</p>
+                                <p class="text-xs text-indigo-700">超天樹群配合音樂同步發光，最浪漫的新加坡夜景！</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <p class="text-xs font-bold text-gray-400 tracking-widest mb-1">21:45 後</p>
+                            <h4 class="font-bold text-dark text-sm">🏀 籃球彈性行程</h4>
+                            <p class="text-xs text-gray-500 mt-1">D2 沒打球 + 還有體力 → 夜間打球<br>沒體力 → 回飯店休息</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== Day 4: 10/9 Google + 回程 ===== -->
+            <div id="day-4" class="day-content mt-4">
+                <div class="mb-4 flex items-center">
+                    <div class="bg-red-100 text-red-500 p-2.5 rounded-xl mr-3 shadow-sm">
+                        <i class="fa-solid fa-plane-departure text-xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-bold text-dark">Google 參觀・回程 ✈️</h2>
+                        <p class="text-xs text-red-500 font-bold">感謝 Brian 帶大家參觀 Google！</p>
+                    </div>
+                </div>
+
+                <div class="bg-amber-50 border border-amber-200 rounded-2xl p-3 mb-4 flex items-start gap-2.5">
+                    <i class="fa-solid fa-circle-exclamation text-amber-500 mt-0.5 flex-shrink-0"></i>
+                    <p class="text-xs text-amber-800 leading-relaxed font-medium">⚠️ 今天是回程日！Check-out 前記得確認好所有行李，不要遺漏。
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3 mb-5">
+                    <div class="bg-white p-3 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-center">
+                        <span class="text-[10px] text-gray-400 mb-0.5"><i
+                                class="fa-solid fa-plane-departure mr-1 text-red-500"></i>回程</span>
+                        <span class="text-xs font-bold text-gray-700 leading-tight">SIN → TPE<br><span
+                                class="text-[10px] font-normal text-gray-500">11:00 樟宜報到</span></span>
+                    </div>
+                    <div class="bg-white p-3 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-center">
+                        <span class="text-[10px] text-gray-400 mb-0.5"><i
+                                class="fa-brands fa-google mr-1 text-blue-500"></i>特別行程</span>
+                        <span class="text-xs font-bold text-gray-700 leading-tight">Google Singapore<br><span
+                                class="text-[10px] font-normal text-gray-500">08:00 – 10:00</span></span>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-3xl shadow-sm border border-gray-100">
+                    <div class="timeline-container">
+                        <div class="timeline-item">
+                            <p class="text-xs font-bold text-gray-400 tracking-widest mb-1">06:30 – 07:00</p>
+                            <h4 class="font-bold text-dark text-sm">起床、整理行李</h4>
+                            <p class="text-xs text-gray-500 mt-1">確認所有物品，準備 Check-out。</p>
+                        </div>
+                        <div class="timeline-item highlight">
+                            <p class="text-xs font-bold text-secondary tracking-widest mb-1">08:00 – 10:00</p>
+                            <h4 class="font-bold text-dark text-sm">🏢 Google Singapore 辦公室參觀</h4>
+                            <div class="bg-blue-50 p-3 rounded-xl mt-2 border border-blue-100">
+                                <p class="text-xs text-blue-800 font-bold mb-1">Brian 親自帶領參觀！</p>
+                                <div class="space-y-1 mt-1">
+                                    <p class="text-xs text-blue-700">🍳 吃早餐（Google 員工餐廳）</p>
+                                    <p class="text-xs text-blue-700">🏗️ 參觀辦公環境及可開放設施</p>
+                                    <p class="text-xs text-blue-700">📸 拍照留念</p>
+                                </div>
+                            </div>
+                            <a href="https://www.google.com/maps/search/?api=1&query=Google+Singapore+Mapletree+Business+City"
+                                target="_blank"
+                                class="inline-flex items-center mt-2 text-secondary bg-blue-50 hover:bg-blue-100 px-3 py-1 rounded-full text-xs font-bold transition border border-blue-200">
+                                <i class="fa-solid fa-location-dot mr-1"></i>導航至 Google
+                            </a>
+                        </div>
+                        <div class="timeline-item">
+                            <p class="text-xs font-bold text-gray-400 tracking-widest mb-1">10:00</p>
+                            <h4 class="font-bold text-dark text-sm">結束 Google 行程</h4>
+                        </div>
+                        <div class="timeline-item">
+                            <p class="text-xs font-bold text-gray-400 tracking-widest mb-1">10:30 – 11:00</p>
+                            <h4 class="font-bold text-dark text-sm">整理行李、飯店 Check-out → 前往樟宜機場</h4>
+                            <p class="text-xs text-gray-500 mt-1">搭 Grab 前往機場，車程約 30 分鐘。</p>
+                        </div>
+                        <div class="timeline-item highlight">
+                            <p class="text-xs font-bold text-secondary tracking-widest mb-1">11:00 – 11:30</p>
+                            <h4 class="font-bold text-dark text-sm">抵達樟宜機場</h4>
+                            <p class="text-xs text-gray-500 mt-1">報到、托運行李、出境。</p>
+                            <div class="bg-rose-50 p-2 rounded-lg mt-2 border border-rose-100">
+                                <p class="text-xs text-rose-800 font-medium">💡 出境後可逛免稅店，別忘了 Jewel Changi Airport！</p>
+                            </div>
+                            <div class="bg-pink-50 p-3 rounded-xl mt-2 border border-pink-100">
+                                <p class="text-xs text-pink-800 font-bold mb-1">🎂 別忘了買 Bengawan Solo 班蘭蛋糕！</p>
+                                <p class="text-xs text-pink-700 leading-relaxed">
+                                    新加坡最著名伴手禮，班蘭椰漿蛋糕香氣濃郁，樟宜機場各航廈均有櫃位，記得出境前採購！</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <p class="text-xs font-bold text-gray-400 tracking-widest mb-1">下午</p>
+                            <h4 class="font-bold text-dark text-sm">✈️ 回台灣！旅程圓滿結束</h4>
+                            <div class="bg-primary/10 p-3 rounded-xl mt-2 border border-primary/20">
+                                <p class="text-xs text-primary font-bold">感謝大家，下次見！🎉</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="h-6"></div>
+        </section>
+        <!-- ======================== -->
+        <!-- SECTION: 實用資訊         -->
+        <!-- ======================== -->
+        <section id="info" class="section-content pt-16 pb-6 px-5 min-h-screen">
+
+            <!-- SOS 緊急電話 -->
+            <div class="sos-card bg-white border-2 border-accent rounded-3xl overflow-hidden mb-5 shadow-lg">
+                <div class="bg-accent py-3 px-5 text-center">
+                    <span class="text-white font-black tracking-widest text-base">
+                        <i class="fa-solid fa-triangle-exclamation mr-2"></i>緊急電話
+                    </span>
+                </div>
+                <div class="p-4 grid grid-cols-3 gap-3">
+                    <a href="tel:999"
+                        class="flex flex-col items-center bg-red-50 border border-red-100 rounded-2xl p-3 hover:bg-red-100 transition">
+                        <i class="fa-solid fa-truck-medical text-red-500 text-2xl mb-1.5"></i>
+                        <span class="text-lg font-black text-red-600">999</span>
+                        <span class="text-[10px] text-red-500 font-bold text-center mt-0.5">警察 / 救護</span>
+                    </a>
+                    <a href="tel:995"
+                        class="flex flex-col items-center bg-orange-50 border border-orange-100 rounded-2xl p-3 hover:bg-orange-100 transition">
+                        <i class="fa-solid fa-fire-extinguisher text-orange-500 text-2xl mb-1.5"></i>
+                        <span class="text-lg font-black text-orange-600">995</span>
+                        <span class="text-[10px] text-orange-500 font-bold text-center mt-0.5">消防局</span>
+                    </a>
+                    <a href="tel:1777"
+                        class="flex flex-col items-center bg-blue-50 border border-blue-100 rounded-2xl p-3 hover:bg-blue-100 transition">
+                        <i class="fa-solid fa-phone text-blue-500 text-2xl mb-1.5"></i>
+                        <span class="text-lg font-black text-blue-600">1777</span>
+                        <span class="text-[10px] text-blue-500 font-bold text-center mt-0.5">非緊急警察</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tab 切換：交通資訊 -->
+            <div class="text-center mb-4">
+                <div
+                    class="inline-flex items-center bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-bold mb-3 border border-primary/20">
+                    <i class="fa-solid fa-circle-info mr-1.5"></i>新加坡交通攻略
+                </div>
+            </div>
+
+            <div class="flex space-x-2 mb-4 bg-gray-100 p-1 rounded-2xl">
+                <button onclick="switchInfoTab('grab')" id="itab-grab"
+                    class="info-tab-btn active flex-1 py-2 px-2 rounded-xl text-xs font-bold text-gray-500 flex items-center justify-center gap-1">
+                    <i class="fa-solid fa-car text-xs"></i>Grab
+                </button>
+                <button onclick="switchInfoTab('ezlink')" id="itab-ezlink"
+                    class="info-tab-btn flex-1 py-2 px-2 rounded-xl text-xs font-bold text-gray-500 flex items-center justify-center gap-1">
+                    <i class="fa-solid fa-credit-card text-xs"></i>EZ-Link
+                </button>
+                <button onclick="switchInfoTab('mrt')" id="itab-mrt"
+                    class="info-tab-btn flex-1 py-2 px-2 rounded-xl text-xs font-bold text-gray-500 flex items-center justify-center gap-1">
+                    <i class="fa-solid fa-train-subway text-xs"></i>MRT
+                </button>
+                <button onclick="switchInfoTab('tips')" id="itab-tips"
+                    class="info-tab-btn flex-1 py-2 px-2 rounded-xl text-xs font-bold text-gray-500 flex items-center justify-center gap-1">
+                    <i class="fa-solid fa-lightbulb text-xs"></i>小知識
+                </button>
+            </div>
+
+            <!-- Grab Panel -->
+            <div id="ipanel-grab" class="info-panel active space-y-3">
+                <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-5">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 rounded-2xl bg-green-500 flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-car text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold text-gray-800">Grab 叫車</p>
+                            <p class="text-xs text-gray-500">新加坡最主要的叫車 App</p>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex items-start gap-3 bg-green-50 p-3 rounded-xl border border-green-100">
+                            <i class="fa-solid fa-download text-green-500 mt-0.5 flex-shrink-0"></i>
+                            <div>
+                                <p class="text-xs font-bold text-green-800">出發前先下載 App！</p>
+                                <p class="text-xs text-green-700 mt-0.5">App Store / Google Play 搜尋「Grab」，並綁定信用卡或
+                                    PayNow。</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 bg-gray-50 p-3 rounded-xl border border-gray-100">
+                            <i class="fa-solid fa-dollar-sign text-secondary mt-0.5 flex-shrink-0"></i>
+                            <div>
+                                <p class="text-xs font-bold text-gray-800">參考車資</p>
+                                <div class="space-y-1 mt-1">
+                                    <p class="text-xs text-gray-600">✈️ 樟宜機場 → 市區：約 SGD 20–35</p>
+                                    <p class="text-xs text-gray-600">🏨 飯店 → 聖淘沙：約 SGD 15–25</p>
+                                    <p class="text-xs text-gray-600">🌳 市區 → Gardens by the Bay：約 SGD 10–18</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 bg-amber-50 p-3 rounded-xl border border-amber-100">
+                            <i class="fa-solid fa-circle-info text-amber-500 mt-0.5 flex-shrink-0"></i>
+                            <div>
+                                <p class="text-xs font-bold text-amber-800">搭乘小技巧</p>
+                                <p class="text-xs text-amber-700 mt-0.5">機場有指定 Grab 上車區（Ground Transport Hub），按 App
+                                    指示前往，不要在路邊等。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EZ-Link Panel -->
+            <div id="ipanel-ezlink" class="info-panel space-y-3">
+                <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-5">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 rounded-2xl bg-blue-500 flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-credit-card text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold text-gray-800">EZ-Link 交通卡</p>
+                            <p class="text-xs text-gray-500">搭 MRT / 公車必備</p>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex items-start gap-3 bg-blue-50 p-3 rounded-xl border border-blue-100">
+                            <i class="fa-solid fa-store text-blue-500 mt-0.5 flex-shrink-0"></i>
+                            <div>
+                                <p class="text-xs font-bold text-blue-800">哪裡買？</p>
+                                <p class="text-xs text-blue-700 mt-0.5">樟宜機場入境後各航廈的 <strong>7-Eleven</strong> 或
+                                    TransitLink 服務台均可購買，約 SGD 12（含 SGD 7 儲值、SGD 5 押金）。</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 bg-purple-50 p-3 rounded-xl border border-purple-100">
+                            <i class="fa-solid fa-plus text-purple-500 mt-0.5 flex-shrink-0"></i>
+                            <div>
+                                <p class="text-xs font-bold text-purple-800">如何加值？</p>
+                                <p class="text-xs text-purple-700 mt-0.5">MRT 站入閘機旁的 <strong>Add Value
+                                        Machine（AVM）</strong> 可現金加值，也可用信用卡加值。</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 bg-green-50 p-3 rounded-xl border border-green-100">
+                            <i class="fa-solid fa-circle-check text-green-500 mt-0.5 flex-shrink-0"></i>
+                            <div>
+                                <p class="text-xs font-bold text-green-800">使用範圍</p>
+                                <p class="text-xs text-green-700 mt-0.5">全線 MRT（地鐵）+ LRT + 大部分公車路線，感應式刷卡超方便！</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 bg-amber-50 p-3 rounded-xl border border-amber-100">
+                            <i class="fa-solid fa-lightbulb text-amber-500 mt-0.5 flex-shrink-0"></i>
+                            <div>
+                                <p class="text-xs font-bold text-amber-800">小提醒</p>
+                                <p class="text-xs text-amber-700 mt-0.5">離開時可到 TransitLink 服務台退卡取回 SGD 5 押金。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MRT Panel -->
+            <div id="ipanel-mrt" class="info-panel space-y-3">
+                <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-5">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 rounded-2xl bg-red-500 flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-train-subway text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold text-gray-800">MRT 地鐵</p>
+                            <p class="text-xs text-gray-500">新加坡最方便的大眾交通</p>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <a href="https://www.google.com/maps/search/?api=1&query=Rochor+MRT+Singapore" target="_blank"
+                            class="flex items-center gap-3 bg-primary/10 p-3 rounded-xl border border-primary/20 hover:bg-primary/20 transition">
+                            <i class="fa-solid fa-location-dot text-primary text-lg flex-shrink-0"></i>
+                            <div>
+                                <p class="text-xs font-bold text-primary">最近地鐵站：Rochor（Downtown Line）</p>
+                                <p class="text-xs text-gray-600 mt-0.5">Hotel Mi Rochor 步行約 3 分鐘</p>
+                            </div>
+                        </a>
+                        <a href="https://www.transitlink.com.sg/eservice/eguide/network_map.php" target="_blank"
+                            class="flex items-center gap-3 bg-blue-50 p-3 rounded-xl border border-blue-100 hover:bg-blue-100 transition">
+                            <i class="fa-solid fa-map text-blue-500 text-lg flex-shrink-0"></i>
+                            <div>
+                                <p class="text-xs font-bold text-blue-800">查看 MRT 完整路線圖</p>
+                                <p class="text-xs text-gray-500 mt-0.5">TransitLink 官方路線圖（開啟外部連結）</p>
+                            </div>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-blue-400 text-xs ml-auto"></i>
+                        </a>
+                        <div class="bg-gray-50 p-3 rounded-xl border border-gray-100">
+                            <p class="text-xs font-bold text-gray-700 mb-2"><i
+                                    class="fa-solid fa-route mr-1 text-secondary"></i>本次行程相關路線</p>
+                            <div class="space-y-1.5">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-blue-600 flex-shrink-0"></span>
+                                    <p class="text-xs text-gray-600">Downtown Line（藍線）— Rochor 站，往 Bayfront（Gardens by
+                                        the Bay）</p>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-red-500 flex-shrink-0"></span>
+                                    <p class="text-xs text-gray-600">North-South Line（紅線）— 往 Changi Airport 轉 East-West
+                                        Line</p>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-yellow-500 flex-shrink-0"></span>
+                                    <p class="text-xs text-gray-600">Circle Line（黃線）— 往 HarbourFront（聖淘沙入口）</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tips Panel -->
+            <div id="ipanel-tips" class="info-panel space-y-3">
+                <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-5 space-y-3">
+                    <p class="font-bold text-gray-800 text-sm flex items-center gap-2"><i
+                            class="fa-solid fa-lightbulb text-yellow-400"></i>新加坡旅遊小知識</p>
+                    <div class="flex items-start gap-3 bg-yellow-50 p-3 rounded-xl border border-yellow-100">
+                        <span class="text-lg flex-shrink-0">🔌</span>
+                        <div>
+                            <p class="text-xs font-bold text-yellow-800">插頭規格</p>
+                            <p class="text-xs text-yellow-700 mt-0.5">新加坡使用英式三腳插頭（Type G，220V）。台灣插頭需自備萬用轉接頭！</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 bg-blue-50 p-3 rounded-xl border border-blue-100">
+                        <span class="text-lg flex-shrink-0">💰</span>
+                        <div>
+                            <p class="text-xs font-bold text-blue-800">貨幣</p>
+                            <p class="text-xs text-blue-700 mt-0.5">新加坡元（SGD），約 1 SGD ≈ 22.5
+                                TWD。大部分地方接受信用卡，建議備少量現金（市場、小攤）。</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 bg-orange-50 p-3 rounded-xl border border-orange-100">
+                        <span class="text-lg flex-shrink-0">☀️</span>
+                        <div>
+                            <p class="text-xs font-bold text-orange-800">天氣</p>
+                            <p class="text-xs text-orange-700 mt-0.5">全年高溫潮濕（約 30–33°C），午後常有熱帶雷陣雨，帶折疊傘備用。防曬乳 SPF50+ 必備！
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 bg-red-50 p-3 rounded-xl border border-red-100">
+                        <span class="text-lg flex-shrink-0">🚫</span>
+                        <div>
+                            <p class="text-xs font-bold text-red-800">嚴禁事項</p>
+                            <div class="space-y-0.5 mt-0.5">
+                                <p class="text-xs text-red-700">• 地鐵車廂內禁止飲食（罰款 SGD 500）</p>
+                                <p class="text-xs text-red-700">• 禁止攜帶榴槤搭乘大眾交通</p>
+                                <p class="text-xs text-red-700">• 口香糖禁止進口（嚴格執行）</p>
+                                <p class="text-xs text-red-700">• 公共場所禁止吸菸</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 bg-green-50 p-3 rounded-xl border border-green-100">
+                        <span class="text-lg flex-shrink-0">🌐</span>
+                        <div>
+                            <p class="text-xs font-bold text-green-800">網路</p>
+                            <p class="text-xs text-green-700 mt-0.5">建議出發前購買新加坡 SIM
+                                卡或開通漫遊，樟宜機場入境大廳有多家電信商櫃台（Singtel、StarHub、M1）。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 景點快速導航 -->
+            <div class="mt-5">
+                <h3 class="text-sm font-bold text-gray-500 mb-3 ml-1 flex items-center">
+                    <i class="fa-solid fa-location-dot mr-2 text-secondary"></i>景點一鍵導航
+                </h3>
+                <div class="space-y-2">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Hotel+Mi+Rochor+Singapore" target="_blank"
+                        class="flex items-center gap-3 bg-white p-3 rounded-2xl border border-gray-100 shadow-sm hover:border-secondary hover:shadow-md transition">
+                        <div
+                            class="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center text-base flex-shrink-0">
+                            🏨</div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-bold text-gray-800 truncate">Hotel Mi Rochor</p>
+                            <p class="text-xs text-gray-400">本次住宿飯店</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-gray-300 text-xs flex-shrink-0"></i>
+                    </a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Lau+Pa+Sat+Singapore" target="_blank"
+                        class="flex items-center gap-3 bg-white p-3 rounded-2xl border border-gray-100 shadow-sm hover:border-secondary hover:shadow-md transition">
+                        <div
+                            class="w-9 h-9 rounded-xl bg-orange-50 flex items-center justify-center text-base flex-shrink-0">
+                            🍽️</div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-bold text-gray-800 truncate">老巴剎 Lau Pa Sat</p>
+                            <p class="text-xs text-gray-400">D1 晚餐 · 戶外大排檔</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-gray-300 text-xs flex-shrink-0"></i>
+                    </a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Universal+Studios+Singapore"
+                        target="_blank"
+                        class="flex items-center gap-3 bg-white p-3 rounded-2xl border border-gray-100 shadow-sm hover:border-secondary hover:shadow-md transition">
+                        <div
+                            class="w-9 h-9 rounded-xl bg-yellow-50 flex items-center justify-center text-base flex-shrink-0">
+                            🎢</div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-bold text-gray-800 truncate">新加坡環球影城</p>
+                            <p class="text-xs text-gray-400">D2 · 聖淘沙</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-gray-300 text-xs flex-shrink-0"></i>
+                    </a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Skyline+Luge+Sentosa" target="_blank"
+                        class="flex items-center gap-3 bg-white p-3 rounded-2xl border border-gray-100 shadow-sm hover:border-secondary hover:shadow-md transition">
+                        <div
+                            class="w-9 h-9 rounded-xl bg-orange-50 flex items-center justify-center text-base flex-shrink-0">
+                            🛷</div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-bold text-gray-800 truncate">Skyline Luge Sentosa</p>
+                            <p class="text-xs text-gray-400">D3 · 滑坡車</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-gray-300 text-xs flex-shrink-0"></i>
+                    </a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Gardens+by+the+Bay+Singapore"
+                        target="_blank"
+                        class="flex items-center gap-3 bg-white p-3 rounded-2xl border border-gray-100 shadow-sm hover:border-secondary hover:shadow-md transition">
+                        <div
+                            class="w-9 h-9 rounded-xl bg-green-50 flex items-center justify-center text-base flex-shrink-0">
+                            🌳</div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-bold text-gray-800 truncate">Gardens by the Bay</p>
+                            <p class="text-xs text-gray-400">D3 · 濱海灣花園 + 燈光秀</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-gray-300 text-xs flex-shrink-0"></i>
+                    </a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Marina+Bay+Sands+Singapore" target="_blank"
+                        class="flex items-center gap-3 bg-white p-3 rounded-2xl border border-gray-100 shadow-sm hover:border-secondary hover:shadow-md transition">
+                        <div
+                            class="w-9 h-9 rounded-xl bg-blue-50 flex items-center justify-center text-base flex-shrink-0">
+                            🏨</div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-bold text-gray-800 truncate">Marina Bay Sands</p>
+                            <p class="text-xs text-gray-400">濱海灣金沙 · 地標拍照</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-gray-300 text-xs flex-shrink-0"></i>
+                    </a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Google+Singapore" target="_blank"
+                        class="flex items-center gap-3 bg-white p-3 rounded-2xl border border-gray-100 shadow-sm hover:border-secondary hover:shadow-md transition">
+                        <div
+                            class="w-9 h-9 rounded-xl bg-blue-50 flex items-center justify-center text-base flex-shrink-0">
+                            🏢</div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-bold text-gray-800 truncate">Google Singapore</p>
+                            <p class="text-xs text-gray-400">D4 · Brian 帶路參觀</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-gray-300 text-xs flex-shrink-0"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="h-6"></div>
+        </section>
+        <!-- ======================== -->
+        <!-- SECTION: 行前清單         -->
+        <!-- ======================== -->
+        <section id="checklist" class="section-content pt-16 pb-6 px-5 min-h-screen">
+
+            <div class="flex justify-between items-center mb-5">
+                <div>
+                    <div
+                        class="inline-flex items-center bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-bold mb-2 border border-primary/20">
+                        <i class="fa-solid fa-suitcase-rolling mr-1.5"></i>行前準備
+                    </div>
+                    <h2 class="text-xl font-black text-dark">行前確認清單</h2>
+                    <p id="checklist-progress" class="text-xs text-gray-400 mt-0.5">載入中...</p>
+                </div>
+                <button onclick="resetChecklist()"
+                    class="text-xs text-gray-400 hover:text-red-400 transition flex items-center gap-1 border border-gray-200 px-3 py-1.5 rounded-xl hover:border-red-200">
+                    <i class="fa-solid fa-rotate-left text-xs"></i>重置
+                </button>
+            </div>
+
+            <div id="checklist-container" class="space-y-4">
+                <!-- 動態生成 -->
+            </div>
+
+            <div class="h-6"></div>
+        </section>
+        <!-- ======================== -->
+        <!-- SECTION: 匯率換算         -->
+        <!-- ======================== -->
+        <section id="currency" class="section-content pt-16 pb-6 px-5 min-h-screen">
+
+            <!-- 主換算卡 -->
+            <div class="currency-card p-6 rounded-3xl shadow-lg relative overflow-hidden mb-5 text-white">
+                <i
+                    class="fa-solid fa-dollar-sign absolute -right-3 -bottom-4 text-8xl opacity-10 transform -rotate-12"></i>
+                <i class="fa-solid fa-circle absolute -left-6 top-0 text-7xl opacity-5"></i>
+
+                <h3 class="font-bold mb-1 flex items-center text-lg">
+                    <i class="fa-solid fa-calculator mr-2 text-teal"></i>匯率換算
+                </h3>
+                <p class="text-xs text-blue-200 mb-5">參考匯率：1 SGD ≈ 22.5 TWD</p>
+
+                <!-- SGD → TWD -->
+                <div class="space-y-3 relative z-10">
+                    <div class="relative">
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-dark font-bold text-sm">S$</span>
+                        <input type="number" id="sgdInput" oninput="convertSGD()" placeholder="輸入新加坡幣"
+                            class="w-full bg-white text-dark text-lg font-bold rounded-xl py-3 pl-10 pr-4 outline-none focus:ring-4 focus:ring-blue-300/50 transition">
+                    </div>
+                    <div class="flex justify-center -my-1 z-20">
+                        <button onclick="swapCurrency()"
+                            class="bg-[#A8DADC] text-dark w-9 h-9 rounded-full flex items-center justify-center border-4 border-secondary shadow-sm hover:rotate-180 transition-transform duration-300">
+                            <i class="fa-solid fa-arrow-down text-xs"></i>
+                        </button>
+                    </div>
+                    <div
+                        class="bg-white/20 backdrop-blur-sm border border-white/30 rounded-xl p-4 flex justify-between items-center">
+                        <span class="text-sm font-medium">換算台幣</span>
+                        <div class="text-2xl font-black tracking-tight flex items-baseline">
+                            <span class="text-sm mr-1 font-normal">NT$</span>
+                            <span id="twdFromSGD">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 分隔線 -->
+                <div class="border-t border-white/20 my-5"></div>
+
+                <!-- TWD → SGD -->
+                <div class="space-y-3 relative z-10">
+                    <div class="relative">
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-dark font-bold text-sm">NT$</span>
+                        <input type="number" id="twdInput" oninput="convertTWD()" placeholder="輸入台幣"
+                            class="w-full bg-white text-dark text-lg font-bold rounded-xl py-3 pl-12 pr-4 outline-none focus:ring-4 focus:ring-blue-300/50 transition">
+                    </div>
+                    <div class="flex justify-center -my-1 z-20">
+                        <div
+                            class="bg-[#A8DADC] text-dark w-9 h-9 rounded-full flex items-center justify-center border-4 border-secondary shadow-sm">
+                            <i class="fa-solid fa-arrow-down text-xs"></i>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-white/20 backdrop-blur-sm border border-white/30 rounded-xl p-4 flex justify-between items-center">
+                        <span class="text-sm font-medium">換算新幣</span>
+                        <div class="text-2xl font-black tracking-tight flex items-baseline">
+                            <span class="text-sm mr-1 font-normal">S$</span>
+                            <span id="sgdFromTWD">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 常見金額速查表 -->
+            <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-5 mb-5">
+                <h3 class="font-bold text-gray-800 mb-4 flex items-center">
+                    <i class="fa-solid fa-table mr-2 text-secondary"></i>常見金額速查
+                </h3>
+                <div class="overflow-hidden rounded-2xl border border-gray-100">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="bg-primary text-white">
+                                <th class="py-2.5 px-4 text-left font-bold text-xs">新加坡幣 SGD</th>
+                                <th class="py-2.5 px-4 text-right font-bold text-xs">台幣 TWD（× 22.5）</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-50">
+                            <tr class="hover:bg-gray-50 transition">
+                                <td class="py-2.5 px-4 font-bold text-gray-800">S$ 5</td>
+                                <td class="py-2.5 px-4 text-right font-bold text-secondary">NT$ 113</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition">
+                                <td class="py-2.5 px-4 font-bold text-gray-800">S$ 10</td>
+                                <td class="py-2.5 px-4 text-right font-bold text-secondary">NT$ 225</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition">
+                                <td class="py-2.5 px-4 font-bold text-gray-800">S$ 20</td>
+                                <td class="py-2.5 px-4 text-right font-bold text-secondary">NT$ 450</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition">
+                                <td class="py-2.5 px-4 font-bold text-gray-800">S$ 50</td>
+                                <td class="py-2.5 px-4 text-right font-bold text-secondary">NT$ 1,125</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition">
+                                <td class="py-2.5 px-4 font-bold text-gray-800">S$ 100</td>
+                                <td class="py-2.5 px-4 text-right font-bold text-secondary">NT$ 2,250</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition">
+                                <td class="py-2.5 px-4 font-bold text-gray-800">S$ 200</td>
+                                <td class="py-2.5 px-4 text-right font-bold text-secondary">NT$ 4,500</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition bg-primary/5">
+                                <td class="py-2.5 px-4 font-bold text-primary">S$ 500</td>
+                                <td class="py-2.5 px-4 text-right font-bold text-primary">NT$ 11,250</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 常見消費參考 -->
+            <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-5">
+                <h3 class="font-bold text-gray-800 mb-4 flex items-center">
+                    <i class="fa-solid fa-receipt mr-2 text-secondary"></i>新加坡消費參考
+                </h3>
+                <div class="space-y-2.5">
+                    <div class="flex items-center justify-between py-1.5 border-b border-gray-50">
+                        <span class="text-sm text-gray-600 flex items-center gap-2"><span
+                                class="text-base">🍜</span>小販中心一餐</span>
+                        <span class="text-sm font-bold text-gray-800">S$ 4–8 <span
+                                class="text-xs text-gray-400 font-normal">（約 NT$ 90–180）</span></span>
+                    </div>
+                    <div class="flex items-center justify-between py-1.5 border-b border-gray-50">
+                        <span class="text-sm text-gray-600 flex items-center gap-2"><span
+                                class="text-base">☕</span>咖啡廳飲料</span>
+                        <span class="text-sm font-bold text-gray-800">S$ 6–10 <span
+                                class="text-xs text-gray-400 font-normal">（約 NT$ 135–225）</span></span>
+                    </div>
+                    <div class="flex items-center justify-between py-1.5 border-b border-gray-50">
+                        <span class="text-sm text-gray-600 flex items-center gap-2"><span
+                                class="text-base">🦀</span>辣椒螃蟹（1 隻）</span>
+                        <span class="text-sm font-bold text-gray-800">S$ 50–80 <span
+                                class="text-xs text-gray-400 font-normal">（約 NT$ 1,125–1,800）</span></span>
+                    </div>
+                    <div class="flex items-center justify-between py-1.5 border-b border-gray-50">
+                        <span class="text-sm text-gray-600 flex items-center gap-2"><span
+                                class="text-base">🎢</span>環球影城門票</span>
+                        <span class="text-sm font-bold text-gray-800">S$ 83+ <span
+                                class="text-xs text-gray-400 font-normal">（約 NT$ 1,870+）</span></span>
+                    </div>
+                    <div class="flex items-center justify-between py-1.5 border-b border-gray-50">
+                        <span class="text-sm text-gray-600 flex items-center gap-2"><span
+                                class="text-base">🛷</span>Skyline Luge（2 次）</span>
+                        <span class="text-sm font-bold text-gray-800">S$ 28 <span
+                                class="text-xs text-gray-400 font-normal">（約 NT$ 630）</span></span>
+                    </div>
+                    <div class="flex items-center justify-between py-1.5 border-b border-gray-50">
+                        <span class="text-sm text-gray-600 flex items-center gap-2"><span
+                                class="text-base">🚢</span>River Cruise</span>
+                        <span class="text-sm font-bold text-gray-800">S$ 25–35 <span
+                                class="text-xs text-gray-400 font-normal">（約 NT$ 563–788）</span></span>
+                    </div>
+                    <div class="flex items-center justify-between py-1.5">
+                        <span class="text-sm text-gray-600 flex items-center gap-2"><span
+                                class="text-base">🚗</span>Grab 市區短途</span>
+                        <span class="text-sm font-bold text-gray-800">S$ 8–20 <span
+                                class="text-xs text-gray-400 font-normal">（約 NT$ 180–450）</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="h-6"></div>
+        </section>
+
+    </main>
+
+    <!-- 底部固定導航 -->
+    <nav class="fixed bottom-0 inset-x-0 glass-nav shadow-[0_-4px_20px_rgba(0,0,0,0.06)] z-50 rounded-t-2xl">
+        <div class="max-w-md mx-auto flex justify-around items-end pt-3 pb-safe">
+            <button onclick="switchTab('home')" class="nav-item active flex flex-col items-center flex-1 pb-3"
+                id="tab-home">
+                <i class="fa-solid fa-house text-xl mb-1 block"></i>
+                <span class="text-[10px] font-bold tracking-wide">首頁</span>
+            </button>
+            <button onclick="switchTab('itinerary')" class="nav-item flex flex-col items-center flex-1 pb-3"
+                id="tab-itinerary">
+                <i class="fa-solid fa-map text-xl mb-1 block"></i>
+                <span class="text-[10px] font-bold tracking-wide">行程</span>
+            </button>
+            <button onclick="switchTab('info')" class="nav-item flex flex-col items-center flex-1 pb-3 relative"
+                id="tab-info">
+                <div class="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-red-500 animate-ping"></div>
+                <div class="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-red-500"></div>
+                <i class="fa-solid fa-circle-info text-xl mb-1 block"></i>
+                <span class="text-[10px] font-bold tracking-wide">實用資訊</span>
+            </button>
+            <button onclick="switchTab('checklist')" class="nav-item flex flex-col items-center flex-1 pb-3"
+                id="tab-checklist">
+                <i class="fa-solid fa-list-check text-xl mb-1 block"></i>
+                <span class="text-[10px] font-bold tracking-wide">行前清單</span>
+            </button>
+            <button onclick="switchTab('currency')" class="nav-item flex flex-col items-center flex-1 pb-3"
+                id="tab-currency">
+                <i class="fa-solid fa-calculator text-xl mb-1 block"></i>
+                <span class="text-[10px] font-bold tracking-wide">匯率</span>
+            </button>
+        </div>
+        <div class="h-2 w-full"></div>
+    </nav>
+
+    <script>
+        // === Tab 切換 ===
+        const TAB_TITLES = {
+            home: '🇸🇬 新加坡 2026',
+            itinerary: '行程表',
+            info: '實用資訊',
+            checklist: '行前清單',
+            currency: '匯率換算'
+        };
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.section-content').forEach(s => {
+                s.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-item').forEach(b => {
+                b.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+            document.getElementById('tab-' + tabId).classList.add('active');
+
+            const header = document.getElementById('top-header');
+            const title = document.getElementById('header-title');
+            if (tabId === 'home') {
+                header.classList.add('hidden');
+            } else {
+                header.classList.remove('hidden');
+                title.textContent = TAB_TITLES[tabId] || '';
+            }
+        }
+
+        // === 倒數計時 ===
+        function updateCountdown() {
+            const target = new Date('2026-10-06T14:00:00+08:00');
+            const now = new Date();
+            const diff = target - now;
+            const el = document.getElementById('countdown');
+            if (!el) return;
+            if (diff <= 0) {
+                el.textContent = '🎉 出發啦！';
+                return;
+            }
+            const d = Math.floor(diff / 86400000);
+            const h = Math.floor((diff % 86400000) / 3600000);
+            const m = Math.floor((diff % 3600000) / 60000);
+            el.textContent = d + ' 天 ' + h + ' 時 ' + m + ' 分後出發';
+        }
+        updateCountdown();
+        setInterval(updateCountdown, 60000);
+
+
+        // === 匯率換算 ===
+        const RATE = 22.5; // 1 SGD = 22.5 TWD
+
+        function convertSGD() {
+            const sgd = parseFloat(document.getElementById('sgdInput').value) || 0;
+            const twd = Math.round(sgd * RATE);
+            document.getElementById('twdFromSGD').textContent = twd.toLocaleString();
+        }
+
+        function convertTWD() {
+            const twd = parseFloat(document.getElementById('twdInput').value) || 0;
+            const sgd = (twd / RATE).toFixed(2);
+            document.getElementById('sgdFromTWD').textContent = sgd;
+        }
+
+        function swapCurrency() {
+            const sgdVal = document.getElementById('sgdInput').value;
+            const twdVal = document.getElementById('twdInput').value;
+            document.getElementById('sgdInput').value = '';
+            document.getElementById('twdInput').value = '';
+            document.getElementById('twdFromSGD').textContent = '0';
+            document.getElementById('sgdFromTWD').textContent = '0';
+        }
+
+        // === 天氣（Open-Meteo，新加坡座標） ===
+        async function initWeather() {
+            try {
+                const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=1.29&longitude=103.85&current=temperature_2m,relative_humidity_2m,weather_code&timezone=Asia%2FSingapore');
+                const data = await res.json();
+                const c = data.current;
+                const temp = Math.round(c.temperature_2m);
+                const hum = c.relative_humidity_2m;
+                const code = c.weather_code;
+                const icons = { 0: '☀️', 1: '🌤️', 2: '⛅', 3: '☁️', 45: '🌫️', 48: '🌫️', 51: '🌦️', 53: '🌦️', 55: '🌧️', 61: '🌧️', 63: '🌧️', 65: '🌧️', 80: '🌦️', 81: '🌧️', 82: '⛈️', 95: '⛈️', 96: '⛈️', 99: '⛈️' };
+                const icon = icons[code] || '🌡️';
+                document.getElementById('weather-icon').textContent = icon;
+                document.getElementById('weather-temp').textContent = temp + '°C';
+                document.getElementById('weather-desc').textContent = '新加坡即時溫度';
+                document.getElementById('weather-humidity').textContent = '濕度 ' + hum + '%';
+            } catch (e) {
+                document.getElementById('weather-temp').textContent = '--';
+            }
+        }
+        initWeather();
+
+
+
+        // === 實用資訊 Tab 切換 ===
+        function switchInfoTab(tabId) {
+            document.querySelectorAll('.info-tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.info-panel').forEach(p => p.classList.remove('active'));
+            document.getElementById('itab-' + tabId).classList.add('active');
+            document.getElementById('ipanel-' + tabId).classList.add('active');
+        }
+
+        // === 行前清單資料 ===
+        const CHECKLIST_ITEMS = [
+            {
+                category: '📄 重要證件',
+                icon: 'fa-id-card',
+                color: 'blue',
+                items: ['護照（有效期限 6 個月以上）', '機票電子票（截圖備份）', '飯店訂房確認信', '旅遊平安保險單', '緊急聯絡人資料']
+            },
+            {
+                category: '💰 金錢',
+                icon: 'fa-wallet',
+                color: 'green',
+                items: ['換好 SGD 新加坡幣', '台幣備用', '信用卡（VISA / Mastercard）', 'EZ-Link 交通卡（抵達後在機場買）']
+            },
+            {
+                category: '🔌 3C 設備',
+                icon: 'fa-plug',
+                color: 'purple',
+                items: ['手機充電線', '萬用轉接頭（英式三腳 Type G）', '行動電源', '相機 + 記憶卡', '耳機']
+            },
+            {
+                category: '👕 衣物',
+                icon: 'fa-shirt',
+                color: 'orange',
+                items: ['輕薄透氣衣物（棉質或排汗）', '防曬外套 / 薄外套（室內冷氣強）', '舒適走路鞋', '折疊傘或雨衣（午後雷雨）', '泳衣（如需使用泳池）']
+            },
+            {
+                category: '💊 藥品保養',
+                icon: 'fa-kit-medical',
+                color: 'red',
+                items: ['腸胃藥（出外吃東西容易腸胃不適）', '感冒藥 / 退燒藥', '防蚊液（東南亞蚊子多）', '防曬乳 SPF50+（新加坡紫外線強）', '個人常備藥品']
+            },
+            {
+                category: '📱 App',
+                icon: 'fa-mobile-screen',
+                color: 'teal',
+                items: ['Grab（叫車必備，出發前先下載）', 'Google Maps（下載離線地圖備用）', 'WhatsApp（群組聯絡）', '環球影城 App（查設施等待時間）']
+            }
+        ];
+
+        const COLOR_MAP = {
+            blue: { bg: 'bg-blue-50', border: 'border-blue-100', icon: 'text-blue-500', title: 'text-blue-800', check: 'bg-blue-500 border-blue-500' },
+            green: { bg: 'bg-green-50', border: 'border-green-100', icon: 'text-green-500', title: 'text-green-800', check: 'bg-green-500 border-green-500' },
+            purple: { bg: 'bg-purple-50', border: 'border-purple-100', icon: 'text-purple-500', title: 'text-purple-800', check: 'bg-purple-500 border-purple-500' },
+            orange: { bg: 'bg-orange-50', border: 'border-orange-100', icon: 'text-orange-500', title: 'text-orange-800', check: 'bg-orange-500 border-orange-500' },
+            red: { bg: 'bg-red-50', border: 'border-red-100', icon: 'text-red-500', title: 'text-red-800', check: 'bg-red-500 border-red-500' },
+            teal: { bg: 'bg-teal-50', border: 'border-teal-100', icon: 'text-teal-500', title: 'text-teal-800', check: 'bg-teal-500 border-teal-500' }
+        };
+
+        function renderChecklist() {
+            const container = document.getElementById('checklist-container');
+            if (!container) return;
+            const saved = JSON.parse(localStorage.getItem('sg2026-checklist') || '{}');
+            let totalItems = 0, checkedItems = 0;
+            let html = '';
+            CHECKLIST_ITEMS.forEach(function (group, gi) {
+                const c = COLOR_MAP[group.color];
+                html += '<div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden mb-4">';
+                html += '<div class="px-5 py-3 ' + c.bg + ' border-b ' + c.border + ' flex items-center gap-2">';
+                html += '<i class="fa-solid ' + group.icon + ' ' + c.icon + '"></i>';
+                html += '<span class="font-bold text-sm ' + c.title + '">' + group.category + '</span>';
+                html += '</div><div class="p-3 space-y-1">';
+                group.items.forEach(function (item, ii) {
+                    const key = 'g' + gi + '-i' + ii;
+                    const checked = saved[key] || false;
+                    if (checked) checkedItems++;
+                    totalItems++;
+                    const chkAttr = checked ? ' checked' : '';
+                    const textClass = checked ? 'checked-text' : 'text-sm text-gray-700';
+                    html += '<label class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-gray-50 cursor-pointer transition" for="chk-' + key + '">';
+                    html += '<input type="checkbox" id="chk-' + key + '" class="custom-checkbox"' + chkAttr + ' onchange="saveCheckItem(\'' + key + '\', this.checked)">';
+                    html += '<span class="' + textClass + '">' + item + '</span>';
+                    html += '</label>';
+                });
+                html += '</div></div>';
+            });
+            container.innerHTML = html;
+            const pct = totalItems > 0 ? Math.round(checkedItems / totalItems * 100) : 0;
+            const prog = document.getElementById('checklist-progress');
+            if (prog) prog.textContent = '已完成 ' + checkedItems + ' / ' + totalItems + ' 項（' + pct + '%）';
+        }
+
+        function saveCheckItem(key, val) {
+            const saved = JSON.parse(localStorage.getItem('sg2026-checklist') || '{}');
+            saved[key] = val;
+            localStorage.setItem('sg2026-checklist', JSON.stringify(saved));
+            renderChecklist();
+        }
+
+        function resetChecklist() {
+            if (!confirm('確定要重置所有勾選？')) return;
+            localStorage.removeItem('sg2026-checklist');
+            renderChecklist();
+        }
+
+        // === 行程日切換 ===
+        function showDay(n, btn) {
+            document.querySelectorAll('.day-content').forEach(d => d.classList.remove('active'));
+            document.querySelectorAll('.day-btn').forEach(b => {
+                b.classList.remove('active');
+                b.classList.remove('bg-primary', 'text-white', 'shadow-md');
+                b.classList.add('bg-white', 'text-gray-500', 'shadow-sm', 'border', 'border-gray-100');
+            });
+            const target = document.getElementById('day-' + n);
+            if (target) target.classList.add('active');
+            if (btn) {
+                btn.classList.add('active');
+                btn.classList.remove('bg-white', 'text-gray-500', 'shadow-sm', 'border', 'border-gray-100', 'border-red-200', 'text-red-500');
+                btn.classList.add('bg-primary', 'text-white', 'shadow-md');
+            }
+        }
+        // === 初始化：顯示首頁 ===
+        document.getElementById('home').classList.add('active');
+        renderChecklist();
+    </script>
+</body>
+
+</html>
