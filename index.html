@@ -1061,7 +1061,7 @@
                         <span class="text-lg flex-shrink-0">💰</span>
                         <div>
                             <p class="text-xs font-bold text-blue-800">貨幣</p>
-                            <p class="text-xs text-blue-700 mt-0.5">新加坡元（SGD），約 1 SGD ≈ 22.5
+                            <p class="text-xs text-blue-700 mt-0.5">新加坡元（SGD），約 1 SGD ≈ 24.84
                                 TWD。大部分地方接受信用卡，建議備少量現金（市場、小攤）。</p>
                         </div>
                     </div>
@@ -1288,37 +1288,37 @@
                         <thead>
                             <tr class="bg-primary text-white">
                                 <th class="py-2.5 px-4 text-left font-bold text-xs">新加坡幣 SGD</th>
-                                <th class="py-2.5 px-4 text-right font-bold text-xs">台幣 TWD（× 22.5）</th>
+                                <th id="rate-table-header" class="py-2.5 px-4 text-right font-bold text-xs">台幣 TWD（載入中...）</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-50">
                             <tr class="hover:bg-gray-50 transition">
                                 <td class="py-2.5 px-4 font-bold text-gray-800">S$ 5</td>
-                                <td class="py-2.5 px-4 text-right font-bold text-secondary">NT$ 113</td>
+                                <td id="rt-5" class="py-2.5 px-4 text-right font-bold text-secondary">NT$ —</td>
                             </tr>
                             <tr class="hover:bg-gray-50 transition">
                                 <td class="py-2.5 px-4 font-bold text-gray-800">S$ 10</td>
-                                <td class="py-2.5 px-4 text-right font-bold text-secondary">NT$ 225</td>
+                                <td id="rt-10" class="py-2.5 px-4 text-right font-bold text-secondary">NT$ —</td>
                             </tr>
                             <tr class="hover:bg-gray-50 transition">
                                 <td class="py-2.5 px-4 font-bold text-gray-800">S$ 20</td>
-                                <td class="py-2.5 px-4 text-right font-bold text-secondary">NT$ 450</td>
+                                <td id="rt-20" class="py-2.5 px-4 text-right font-bold text-secondary">NT$ —</td>
                             </tr>
                             <tr class="hover:bg-gray-50 transition">
                                 <td class="py-2.5 px-4 font-bold text-gray-800">S$ 50</td>
-                                <td class="py-2.5 px-4 text-right font-bold text-secondary">NT$ 1,125</td>
+                                <td id="rt-50" class="py-2.5 px-4 text-right font-bold text-secondary">NT$ —</td>
                             </tr>
                             <tr class="hover:bg-gray-50 transition">
                                 <td class="py-2.5 px-4 font-bold text-gray-800">S$ 100</td>
-                                <td class="py-2.5 px-4 text-right font-bold text-secondary">NT$ 2,250</td>
+                                <td id="rt-100" class="py-2.5 px-4 text-right font-bold text-secondary">NT$ —</td>
                             </tr>
                             <tr class="hover:bg-gray-50 transition">
                                 <td class="py-2.5 px-4 font-bold text-gray-800">S$ 200</td>
-                                <td class="py-2.5 px-4 text-right font-bold text-secondary">NT$ 4,500</td>
+                                <td id="rt-200" class="py-2.5 px-4 text-right font-bold text-secondary">NT$ —</td>
                             </tr>
                             <tr class="hover:bg-gray-50 transition bg-primary/5">
                                 <td class="py-2.5 px-4 font-bold text-primary">S$ 500</td>
-                                <td class="py-2.5 px-4 text-right font-bold text-primary">NT$ 11,250</td>
+                                <td id="rt-500" class="py-2.5 px-4 text-right font-bold text-primary">NT$ —</td>
                             </tr>
                         </tbody>
                     </table>
@@ -1466,7 +1466,7 @@
 
 
         // === 匯率換算（即時匯率） ===
-        let RATE = 22.5; // 預設值，會被 API 更新
+        let RATE = 24.8; // 預設值，會被 API 更新
 
         async function initCurrency() {
             const rateEl = document.getElementById('rate-display');
@@ -1485,6 +1485,17 @@
             } catch (e) {
                 if (rateEl) rateEl.textContent = '參考匯率：1 SGD ≈ ' + RATE + ' TWD（離線模式）';
             }
+            updateRateTable();
+        }
+
+        function updateRateTable() {
+            const amounts = [5, 10, 20, 50, 100, 200, 500];
+            const header = document.getElementById('rate-table-header');
+            if (header) header.textContent = '台幣 TWD（× ' + RATE.toFixed(2) + '）';
+            amounts.forEach(function(sgd) {
+                const el = document.getElementById('rt-' + sgd);
+                if (el) el.textContent = 'NT$ ' + Math.round(sgd * RATE).toLocaleString();
+            });
         }
 
         function convertSGD() {
