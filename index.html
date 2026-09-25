@@ -251,6 +251,29 @@
                 background-position: 200px 0;
             }
         }
+
+        /* 天氣預報卡 */
+        .forecast-card {
+            background: linear-gradient(135deg, #1D3557 0%, #2a6f8f 100%);
+        }
+        .forecast-day {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .forecast-day:active {
+            transform: scale(0.96);
+        }
+        .rain-bar {
+            height: 4px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .rain-bar-fill {
+            height: 100%;
+            border-radius: 2px;
+            background: linear-gradient(90deg, #60a5fa, #38bdf8);
+            transition: width 0.8s cubic-bezier(0.4,0,0.2,1);
+        }
     </style>
 </head>
 
@@ -415,22 +438,56 @@
                 </div>
             </div>
 
-            <!-- 天氣資訊 -->
-            <div id="weather-card" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-xl bg-yellow-50 flex items-center justify-center text-2xl"
-                            id="weather-icon">🌤️</div>
-                        <div>
-                            <p class="text-xs text-gray-400 font-medium">新加坡即時天氣</p>
-                            <p class="font-bold text-gray-800 text-lg" id="weather-temp">載入中...</p>
-                        </div>
+            <!-- 4天天氣預報 -->
+            <div class="forecast-card rounded-2xl p-4 mb-4 shadow-lg" id="forecast-block">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center gap-2">
+                        <span class="text-white text-base font-bold">🌤️ 新加坡天氣預報</span>
+                        <span class="text-blue-200 text-[10px] bg-white/10 px-2 py-0.5 rounded-full">10/6 – 10/9</span>
                     </div>
-                    <div class="text-right">
-                        <p class="text-xs text-gray-400" id="weather-desc">--</p>
-                        <p class="text-xs text-blue-500 mt-1" id="weather-humidity">--</p>
+                    <button onclick="fetchForecast()" id="forecast-refresh-btn"
+                        class="text-white/70 hover:text-white text-xs flex items-center gap-1 transition">
+                        <i class="fa-solid fa-rotate-right text-[11px]"></i>
+                    </button>
+                </div>
+
+                <!-- 4天格子 -->
+                <div class="grid grid-cols-4 gap-2" id="forecast-grid">
+                    <div class="forecast-day bg-white/10 rounded-xl p-2.5 text-center text-white" id="fc-0">
+                        <p class="text-[10px] font-bold opacity-70 mb-1">10/6 二</p>
+                        <div class="text-2xl my-1" id="fc-icon-0">⏳</div>
+                        <p class="text-xs font-bold" id="fc-temp-0">--</p>
+                        <div class="rain-bar mt-1.5 mb-0.5"><div class="rain-bar-fill" id="fc-rain-bar-0" style="width:0%"></div></div>
+                        <p class="text-[9px] opacity-60" id="fc-rain-0">--</p>
+                    </div>
+                    <div class="forecast-day bg-white/10 rounded-xl p-2.5 text-center text-white" id="fc-1">
+                        <p class="text-[10px] font-bold opacity-70 mb-1">10/7 三</p>
+                        <div class="text-2xl my-1" id="fc-icon-1">⏳</div>
+                        <p class="text-xs font-bold" id="fc-temp-1">--</p>
+                        <div class="rain-bar mt-1.5 mb-0.5"><div class="rain-bar-fill" id="fc-rain-bar-1" style="width:0%"></div></div>
+                        <p class="text-[9px] opacity-60" id="fc-rain-1">--</p>
+                    </div>
+                    <div class="forecast-day bg-white/10 rounded-xl p-2.5 text-center text-white" id="fc-2">
+                        <p class="text-[10px] font-bold opacity-70 mb-1">10/8 四</p>
+                        <div class="text-2xl my-1" id="fc-icon-2">⏳</div>
+                        <p class="text-xs font-bold" id="fc-temp-2">--</p>
+                        <div class="rain-bar mt-1.5 mb-0.5"><div class="rain-bar-fill" id="fc-rain-bar-2" style="width:0%"></div></div>
+                        <p class="text-[9px] opacity-60" id="fc-rain-2">--</p>
+                    </div>
+                    <div class="forecast-day bg-white/10 rounded-xl p-2.5 text-center text-white" id="fc-3">
+                        <p class="text-[10px] font-bold opacity-70 mb-1">10/9 五</p>
+                        <div class="text-2xl my-1" id="fc-icon-3">⏳</div>
+                        <p class="text-xs font-bold" id="fc-temp-3">--</p>
+                        <div class="rain-bar mt-1.5 mb-0.5"><div class="rain-bar-fill" id="fc-rain-bar-3" style="width:0%"></div></div>
+                        <p class="text-[9px] opacity-60" id="fc-rain-3">--</p>
                     </div>
                 </div>
+
+                <!-- 穿搭建議 -->
+                <div id="forecast-tip" class="mt-3 bg-white/10 rounded-xl px-3 py-2 text-white text-xs leading-relaxed hidden">
+                    <i class="fa-solid fa-shirt mr-1.5 opacity-80"></i><span id="forecast-tip-text"></span>
+                </div>
+                <p id="forecast-error" class="text-center text-white/50 text-xs mt-2 hidden">天氣資料暫時無法載入，請稍後重試</p>
             </div>
 
         </section>
@@ -439,25 +496,24 @@
         <!-- SECTION: 行程表           -->
         <!-- ======================== -->
         <section id="itinerary" class="section-content pt-16 pb-6 px-5 min-h-screen">
-
             <!-- 天數切換器 -->
             <div
                 class="flex space-x-2 overflow-x-auto pb-3 pt-1 hide-scrollbar -mx-5 px-5 sticky top-12 z-30 bg-[#F1FAEE]/95 backdrop-blur">
                 <button onclick="showDay(1, this)" id="day-btn-1"
                     class="day-btn active flex-none px-4 py-2.5 bg-primary text-white rounded-xl shadow-md text-sm font-bold transition-all">
-                    D1<span class="text-[10px] font-normal block opacity-80 mt-0.5">10/6 抵達</span>
+                    Day 1<span class="text-[10px] font-normal block opacity-80 mt-0.5">10/6 抵達</span>
                 </button>
                 <button onclick="showDay(2, this)" id="day-btn-2"
                     class="day-btn flex-none px-4 py-2.5 bg-white text-gray-500 rounded-xl shadow-sm border border-gray-100 text-sm font-bold transition-all">
-                    D2<span class="text-[10px] font-normal block opacity-80 mt-0.5">10/7 環球</span>
+                    Day 2<span class="text-[10px] font-normal block opacity-80 mt-0.5">10/7 環球</span>
                 </button>
                 <button onclick="showDay(3, this)" id="day-btn-3"
                     class="day-btn flex-none px-4 py-2.5 bg-white text-gray-500 rounded-xl shadow-sm border border-gray-100 text-sm font-bold transition-all">
-                    D3<span class="text-[10px] font-normal block opacity-80 mt-0.5">10/8 濱海灣</span>
+                    Day 3<span class="text-[10px] font-normal block opacity-80 mt-0.5">10/8 濱海灣</span>
                 </button>
                 <button onclick="showDay(4, this)" id="day-btn-4"
                     class="day-btn flex-none px-4 py-2.5 bg-white border border-red-200 text-red-500 rounded-xl shadow-sm text-sm font-bold transition-all">
-                    D4 ✈️<span class="text-[10px] font-normal block opacity-80 mt-0.5">10/9 回程</span>
+                    Day 4 ✈️<span class="text-[10px] font-normal block opacity-80 mt-0.5">10/9 回程</span>
                 </button>
             </div>
 
@@ -1138,7 +1194,7 @@
                             🍽️</div>
                         <div class="flex-1 min-w-0">
                             <p class="text-sm font-bold text-gray-800 truncate">老巴剎 Lau Pa Sat</p>
-                            <p class="text-xs text-gray-400">D1 晚餐 · 戶外大排檔</p>
+                            <p class="text-xs text-gray-400">Day 1 晚餐 · 戶外大排檔</p>
                         </div>
                         <i class="fa-solid fa-chevron-right text-gray-300 text-xs flex-shrink-0"></i>
                     </a>
@@ -1150,7 +1206,7 @@
                             🎢</div>
                         <div class="flex-1 min-w-0">
                             <p class="text-sm font-bold text-gray-800 truncate">新加坡環球影城</p>
-                            <p class="text-xs text-gray-400">D2 · 聖淘沙</p>
+                            <p class="text-xs text-gray-400">Day 2 · 聖淘沙</p>
                         </div>
                         <i class="fa-solid fa-chevron-right text-gray-300 text-xs flex-shrink-0"></i>
                     </a>
@@ -1161,7 +1217,7 @@
                             🛷</div>
                         <div class="flex-1 min-w-0">
                             <p class="text-sm font-bold text-gray-800 truncate">Skyline Luge Sentosa</p>
-                            <p class="text-xs text-gray-400">D3 · 滑坡車</p>
+                            <p class="text-xs text-gray-400">Day 3 · 滑坡車</p>
                         </div>
                         <i class="fa-solid fa-chevron-right text-gray-300 text-xs flex-shrink-0"></i>
                     </a>
@@ -1173,7 +1229,7 @@
                             🌳</div>
                         <div class="flex-1 min-w-0">
                             <p class="text-sm font-bold text-gray-800 truncate">Gardens by the Bay</p>
-                            <p class="text-xs text-gray-400">D3 · 濱海灣花園 + 燈光秀</p>
+                            <p class="text-xs text-gray-400">Day 3 · 濱海灣花園 + 燈光秀</p>
                         </div>
                         <i class="fa-solid fa-chevron-right text-gray-300 text-xs flex-shrink-0"></i>
                     </a>
@@ -1195,7 +1251,7 @@
                             🏢</div>
                         <div class="flex-1 min-w-0">
                             <p class="text-sm font-bold text-gray-800 truncate">Google Singapore</p>
-                            <p class="text-xs text-gray-400">D4 · Brian 帶路參觀</p>
+                            <p class="text-xs text-gray-400">Day 4 · Brian 帶路參觀</p>
                         </div>
                         <i class="fa-solid fa-chevron-right text-gray-300 text-xs flex-shrink-0"></i>
                     </a>
@@ -1683,10 +1739,92 @@
                 btn.classList.add('bg-primary', 'text-white', 'shadow-md');
             }
         }
+        // === 天氣預報（Open-Meteo，新加坡 1.3521, 103.8198）===
+        const TRIP_DATES = ['2026-10-06', '2026-10-07', '2026-10-08', '2026-10-09'];
+
+        function wmoIcon(code, isDay) {
+            if (code === 0) return isDay ? '☀️' : '🌙';
+            if (code <= 2) return isDay ? '⛅' : '🌙☁️';
+            if (code <= 3) return '☁️';
+            if (code <= 49) return '🌫️';
+            if (code <= 55) return '🌦️';
+            if (code <= 65) return '🌧️';
+            if (code <= 77) return '🌨️';
+            if (code <= 82) return '🌧️';
+            if (code <= 99) return '⛈️';
+            return '🌡️';
+        }
+
+        function forecastTip(maxRain, maxTemp) {
+            var tips = [];
+            if (maxTemp >= 33) tips.push('天氣炎熱，建議穿透氣輕薄衣物');
+            else tips.push('氣候舒適，輕薄短袖即可');
+            if (maxRain >= 60) tips.push('☂️ 降雨機率高，記得帶雨具！');
+            else if (maxRain >= 30) tips.push('💧 有陣雨可能，可帶折疊傘備用');
+            else tips.push('🌞 雨機率低，享受好天氣！');
+            tips.push('防曬乳不可少，UV 指數高');
+            return tips.join('　');
+        }
+
+        async function fetchForecast() {
+            var btn = document.getElementById('forecast-refresh-btn');
+            var errEl = document.getElementById('forecast-error');
+            if (btn) btn.classList.add('animate-spin');
+            if (errEl) errEl.classList.add('hidden');
+            try {
+                var url = 'https://api.open-meteo.com/v1/forecast?latitude=1.3521&longitude=103.8198' +
+                    '&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max' +
+                    '&timezone=Asia%2FSingapore&start_date=2026-10-06&end_date=2026-10-09';
+                var res = await fetch(url);
+                if (!res.ok) throw new Error('network');
+                var data = await res.json();
+                var daily = data.daily;
+                var maxRainAll = 0, maxTempAll = 0;
+                for (var i = 0; i < 4; i++) {
+                    var dateIdx = daily.time.indexOf(TRIP_DATES[i]);
+                    if (dateIdx === -1) { continue; }
+                    var code = daily.weathercode[dateIdx];
+                    var tmax = daily.temperature_2m_max[dateIdx];
+                    var tmin = daily.temperature_2m_min[dateIdx];
+                    var rain = daily.precipitation_probability_max[dateIdx] || 0;
+                    if (rain > maxRainAll) maxRainAll = rain;
+                    if (tmax > maxTempAll) maxTempAll = tmax;
+                    var icon = document.getElementById('fc-icon-' + i);
+                    var temp = document.getElementById('fc-temp-' + i);
+                    var rainEl = document.getElementById('fc-rain-' + i);
+                    var rainBar = document.getElementById('fc-rain-bar-' + i);
+                    if (icon) icon.textContent = wmoIcon(code, true);
+                    if (temp) temp.textContent = Math.round(tmin) + '–' + Math.round(tmax) + '°C';
+                    if (rainEl) rainEl.textContent = '☔ ' + rain + '%';
+                    if (rainBar) rainBar.style.width = rain + '%';
+                    // 高降雨機率：卡片微調色
+                    var card = document.getElementById('fc-' + i);
+                    if (card && rain >= 60) {
+                        card.style.background = 'rgba(56,189,248,0.25)';
+                    } else if (card && rain < 20) {
+                        card.style.background = 'rgba(250,204,21,0.15)';
+                    }
+                }
+                // 顯示穿搭建議
+                var tipEl = document.getElementById('forecast-tip');
+                var tipText = document.getElementById('forecast-tip-text');
+                if (tipEl && tipText) {
+                    tipText.textContent = forecastTip(maxRainAll, maxTempAll);
+                    tipEl.classList.remove('hidden');
+                }
+            } catch (e) {
+                var errEl2 = document.getElementById('forecast-error');
+                if (errEl2) errEl2.classList.remove('hidden');
+            } finally {
+                if (btn) btn.classList.remove('animate-spin');
+            }
+        }
+
         // === 初始化：顯示首頁 ===
         document.getElementById('home').classList.add('active');
         renderChecklist();
         initCurrency();
+        fetchForecast();
     </script>
 </body>
 
