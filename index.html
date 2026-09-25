@@ -1527,13 +1527,18 @@
                 const hum = c.relative_humidity_2m;
                 const code = c.weather_code;
                 const icons = { 0: '☀️', 1: '🌤️', 2: '⛅', 3: '☁️', 45: '🌫️', 48: '🌫️', 51: '🌦️', 53: '🌦️', 55: '🌧️', 61: '🌧️', 63: '🌧️', 65: '🌧️', 80: '🌦️', 81: '🌧️', 82: '⛈️', 95: '⛈️', 96: '⛈️', 99: '⛈️' };
+                const descs = { 0: '晴朗', 1: '大致晴朗', 2: '局部多雲', 3: '陰天', 45: '有霧', 48: '有霧', 51: '毛毛雨', 53: '毛毛雨', 55: '毛毛雨', 61: '小雨', 63: '中雨', 65: '大雨', 80: '陣雨', 81: '陣雨', 82: '大陣雨', 95: '雷陣雨', 96: '雷陣雨', 99: '雷陣雨' };
                 const icon = icons[code] || '🌡️';
+                const desc = descs[code] || '天氣資訊';
+                const now = new Date();
+                const timeStr = now.toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit' });
                 document.getElementById('weather-icon').textContent = icon;
                 document.getElementById('weather-temp').textContent = temp + '°C';
-                document.getElementById('weather-desc').textContent = '新加坡即時溫度';
+                document.getElementById('weather-desc').textContent = desc + '・更新 ' + timeStr;
                 document.getElementById('weather-humidity').textContent = '濕度 ' + hum + '%';
             } catch (e) {
                 document.getElementById('weather-temp').textContent = '--';
+                document.getElementById('weather-desc').textContent = '無法取得天氣';
             }
         }
         initWeather();
