@@ -1226,7 +1226,7 @@
                 <h3 class="font-bold mb-1 flex items-center text-lg">
                     <i class="fa-solid fa-calculator mr-2 text-teal"></i>匯率換算
                 </h3>
-                <p class="text-xs text-blue-200 mb-5">參考匯率：1 SGD ≈ 22.5 TWD</p>
+                <p id="rate-display" class="text-xs text-blue-200 mb-5">載入即時匯率中...</p>
 
                 <!-- SGD → TWD -->
                 <div class="space-y-3 relative z-10">
@@ -1465,8 +1465,27 @@
         setInterval(updateCountdown, 60000);
 
 
-        // === 匯率換算 ===
-        const RATE = 22.5; // 1 SGD = 22.5 TWD
+        // === 匯率換算（即時匯率） ===
+        let RATE = 22.5; // 預設值，會被 API 更新
+
+        async function initCurrency() {
+            const rateEl = document.getElementById('rate-display');
+            try {
+                const res = await fetch('https://open.er-api.com/v6/latest/SGD');
+                const data = await res.json();
+                if (data && data.rates && data.rates.TWD) {
+                    RATE = parseFloat(data.rates.TWD.toFixed(4));
+                    const now = new Date();
+                    const timeStr = now.toLocaleDateString('zh-TW', { month: 'long', day: 'numeric' })
+                        + ' ' + now.toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit' });
+                    if (rateEl) rateEl.textContent = '即時匯率：1 SGD ≈ ' + RATE.toFixed(2) + ' TWD｜更新 ' + timeStr;
+                } else {
+                    if (rateEl) rateEl.textContent = '參考匯率：1 SGD ≈ ' + RATE + ' TWD（無法取得即時匯率）';
+                }
+            } catch (e) {
+                if (rateEl) rateEl.textContent = '參考匯率：1 SGD ≈ ' + RATE + ' TWD（離線模式）';
+            }
+        }
 
         function convertSGD() {
             const sgd = parseFloat(document.getElementById('sgdInput').value) || 0;
@@ -1481,8 +1500,6 @@
         }
 
         function swapCurrency() {
-            const sgdVal = document.getElementById('sgdInput').value;
-            const twdVal = document.getElementById('twdInput').value;
             document.getElementById('sgdInput').value = '';
             document.getElementById('twdInput').value = '';
             document.getElementById('twdFromSGD').textContent = '0';
@@ -1634,6 +1651,7 @@
         // === 初始化：顯示首頁 ===
         document.getElementById('home').classList.add('active');
         renderChecklist();
+        initCurrency();
     </script>
 </body>
 
